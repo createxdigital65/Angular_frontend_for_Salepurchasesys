@@ -1,9 +1,15 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+// src/app/app.config.ts
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-
+import { importProvidersFrom } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
 
-export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration()]
+export const appConfig = {
+  providers: [
+    provideHttpClient(),
+    provideRouter(routes),
+    importProvidersFrom(FormsModule),
+    provideHttpClient(withInterceptorsFromDi()) // ✅ Modern replacement
+  ]
 };

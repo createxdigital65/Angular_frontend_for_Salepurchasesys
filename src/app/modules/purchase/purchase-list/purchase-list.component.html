@@ -1,0 +1,38 @@
+<div class="container mt-4">
+    <h2 class="mb-3">Purchases</h2>
+
+
+    <div class="text-end mb-3">
+        <button class="btn btn-primary" [routerLink]="['/purchases/create']">+ Add Purchase</button>
+    </div>
+
+    <table class="table table-bordered table-hover" *ngIf="purchases.length > 0; else noData">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let purchase of purchases">
+                <td>{{ purchase.id }}</td>
+                <td>{{ purchase.userId }}</td>
+                <td>{{ purchase.purchaseDate | date:'medium' }}</td>
+                <td>{{ purchase.totalAmount }}</td>
+                <td>{{ purchase.status }}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary me-2" (click)="editPurchase(purchase.id)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="deletePurchase(purchase.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noData>
+        <div class="alert alert-info">No purchases found.</div>
+    </ng-template>
+</div>

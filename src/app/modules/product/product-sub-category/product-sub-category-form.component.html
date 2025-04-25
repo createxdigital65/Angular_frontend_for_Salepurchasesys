@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <h2>{{ isEditMode ? 'Edit' : 'Create' }} Product Subcategory</h2>
+
+    <form (ngSubmit)="save()" #subCategoryForm="ngForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" id="name" name="name" class="form-control" [(ngModel)]="subCategory.name" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="productCategoryId" class="form-label">Category:</label>
+            <select id="productCategoryId" name="productCategoryId" class="form-select"
+                [(ngModel)]="subCategory.productCategoryId" required>
+                <option value="" disabled selected>Select a category</option>
+                <option *ngFor="let cat of categories" [value]="cat.id">
+                    {{ cat.name }}
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">{{ isEditMode ? 'Update' : 'Create' }}</button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="goBack()">
+            Cancel
+        </button>
+    </form>
+</div>

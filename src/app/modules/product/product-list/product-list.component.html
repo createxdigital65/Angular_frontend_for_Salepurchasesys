@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <h2 class="mb-3">Product List</h2>
+    <div class="product-list-header">
+        <button routerLink="/products/create" class="btn btn-primary">
+            + Create Product
+        </button>
+    </div>
+    <table class="table table-bordered table-hover" *ngIf="products.length > 0; else noData">
+
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>User</th>
+                <th>Subcategory</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ getUserName(product.userId) }}</td>
+                <td>{{ getSubCategoryName(product.productSubCategoryId) }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary me-2" (click)="editProduct(product)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noData>
+        <div class="alert alert-info">No products found.</div>
+    </ng-template>
+</div>

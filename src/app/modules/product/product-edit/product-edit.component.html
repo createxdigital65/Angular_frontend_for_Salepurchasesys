@@ -1,0 +1,24 @@
+<h2>Edit Product</h2>
+
+<form (ngSubmit)="save()" *ngIf="product">
+    <label>Name:</label>
+    <input [(ngModel)]="product.name" name="name" />
+
+    <label>Price:</label>
+    <input type="number" [(ngModel)]="product.price" name="price" />
+
+    <label>Stock:</label>
+    <input type="number" [(ngModel)]="product.stock" name="stock" />
+
+    <label>User:</label>
+    <select [(ngModel)]="product.userId" name="userId">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+    </select>
+
+    <label>Subcategory:</label>
+    <select [(ngModel)]="product.productSubCategoryId" name="productSubCategoryId">
+        <option *ngFor="let sub of subCategories" [value]="sub.id">{{ sub.name }}</option>
+    </select>
+
+    <button type="submit">Save</button>
+</form>

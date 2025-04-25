@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <h2 class="mb-3">Product Subcategories</h2>
+
+    <div class="d-flex justify-content-between mb-3">
+        <button class="btn btn-primary" [routerLink]="['/product-sub-categories/create']">+ Create Subcategory</button>
+    </div>
+
+    <table class="table table-bordered table-hover" *ngIf="subCategories.length > 0; else noData">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sub of subCategories">
+                <td>{{ sub.id }}</td>
+                <td>{{ sub.name }}</td>
+                <td>{{ sub.productCategoryId }}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary me-2" (click)="editSubCategory(sub.id)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteSubCategory(sub.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noData>
+        <div class="alert alert-info">No subcategories found.</div>
+    </ng-template>
+</div>

@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>{{ isEditMode ? 'Edit Product' : 'Create Product' }}</h2>
+
+    <form (ngSubmit)="save()">
+        <div class="form-group">
+            <label>Name:</label>
+            <input class="form-control" [(ngModel)]="product.name" name="name" required />
+        </div>
+
+        <div class="form-group">
+            <label>Price:</label>
+            <input class="form-control" type="number" [(ngModel)]="product.price" name="price" required />
+        </div>
+
+        <div class="form-group">
+            <label>Stock:</label>
+            <input class="form-control" type="number" [(ngModel)]="product.stock" name="stock" required />
+        </div>
+
+        <div class="form-group">
+            <label>User:</label>
+            <select class="form-control" [(ngModel)]="product.userId" name="userId" required>
+                <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Subcategory:</label>
+            <select class="form-control" [(ngModel)]="product.productSubCategoryId" name="productSubCategoryId"
+                required>
+                <option *ngFor="let sub of subCategories" [value]="sub.id">{{ sub.name }}</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            {{ isEditMode ? 'Update' : 'Create' }}
+        </button>
+    </form>
+</div>

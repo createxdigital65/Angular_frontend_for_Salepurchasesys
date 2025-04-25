@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <h2>{{ isEditMode ? 'Edit' : 'Create' }} Purchase</h2>
+
+    <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="userId" class="form-label">User ID</label>
+            <input id="userId" type="number" class="form-control" formControlName="userId" />
+        </div>
+
+        <div class="mb-3">
+            <label for="purchaseDate" class="form-label">Purchase Date</label>
+            <input id="purchaseDate" type="datetime-local" class="form-control" formControlName="purchaseDate" />
+        </div>
+
+        <div class="mb-3">
+            <label for="totalAmount" class="form-label">Total Amount</label>
+            <input id="totalAmount" type="number" class="form-control" formControlName="totalAmount" />
+        </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input id="status" type="text" class="form-control" formControlName="status" />
+        </div>
+
+        <button type="submit" class="btn btn-success">{{ isEditMode ? 'Update' : 'Create' }}</button>
+        <button class="btn btn-secondary ms-2" [routerLink]="['/purchases']">Cancel</button>
+    </form>
+</div>
