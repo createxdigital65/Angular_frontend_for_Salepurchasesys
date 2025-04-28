@@ -33,6 +33,10 @@ export class PurchaseListComponent implements OnInit {
       }
     });
   }
+  viewDetails(id: number): void {
+    this.router.navigate(['/purchases', id]);
+  }
+
 
   editPurchase(id: number) {
     this.router.navigate(['/purchases/edit', id]);

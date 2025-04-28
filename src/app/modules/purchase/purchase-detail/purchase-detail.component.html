@@ -1,0 +1,13 @@
+<div class="container mt-4" *ngIf="purchase">
+    <h2>Purchase Details</h2>
+
+    <ul class="list-group">
+        <li class="list-group-item"><strong>ID:</strong> {{ purchase.id }}</li>
+        <li class="list-group-item"><strong>User ID:</strong> {{ purchase.userId }}</li>
+        <li class="list-group-item"><strong>Purchase Date:</strong> {{ purchase.purchaseDate | date:'medium' }}</li>
+        <li class="list-group-item"><strong>Total Amount:</strong> ${{ purchase.totalAmount }}</li>
+        <li class="list-group-item"><strong>Status:</strong> {{ purchase.status }}</li>
+    </ul>
+
+    <button class="btn btn-primary mt-3" (click)="goBack()">Back to Purchases</button>
+</div>
