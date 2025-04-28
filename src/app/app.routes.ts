@@ -7,7 +7,7 @@ export const routes: Routes = [
     { path: 'purchases', loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule) },
     { path: 'sales', loadChildren: () => import('./modules/sale/sale.module').then(m => m.SaleModule) },
     { path: 'users', loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule) },
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'products', pathMatch: 'full' },
     {
         path: 'product-sub-categories',
         loadChildren: () => import('./modules/product/product-sub-category/product-sub-category-routing.module').then(m => m.ProductSubCategoryRoutingModule)

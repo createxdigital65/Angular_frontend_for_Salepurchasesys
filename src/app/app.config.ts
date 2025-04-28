@@ -10,6 +10,6 @@ export const appConfig = {
     provideHttpClient(),
     provideRouter(routes),
     importProvidersFrom(FormsModule),
-    provideHttpClient(withInterceptorsFromDi()) // ✅ Modern replacement
+    provideHttpClient(withInterceptorsFromDi())
   ]
 };

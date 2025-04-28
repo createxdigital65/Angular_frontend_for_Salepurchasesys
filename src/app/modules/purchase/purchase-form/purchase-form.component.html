@@ -2,6 +2,10 @@
     <h2>{{ isEditMode ? 'Edit' : 'Create' }} Purchase</h2>
 
     <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
+
+        <!-- Hidden id input -->
+        <input type="hidden" formControlName="id" />
+
         <div class="mb-3">
             <label for="userId" class="form-label">User ID</label>
             <input id="userId" type="number" class="form-control" formControlName="userId" />

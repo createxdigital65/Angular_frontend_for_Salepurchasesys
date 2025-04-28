@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PurchaseService } from '../purchase.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-purchase-form',
   templateUrl: './purchase-form.component.html',
-  providers: [DatePipe]
 })
 export class PurchaseFormComponent implements OnInit {
   purchaseForm!: FormGroup;
@@ -16,16 +14,17 @@ export class PurchaseFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private purchaseService: PurchaseService,
     private route: ActivatedRoute,
-    private router: Router,
-    private purchaseService: PurchaseService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.purchaseForm = this.fb.group({
-      userId: ['', Validators.required],
-      purchaseDate: ['', Validators.required],
-      totalAmount: [0, Validators.required],
+      id: [null],  // <-- Important: added id
+      userId: [null, Validators.required],
+      purchaseDate: [null, Validators.required],
+      totalAmount: [null, Validators.required],
       status: ['', Validators.required]
     });
 
@@ -34,30 +33,33 @@ export class PurchaseFormComponent implements OnInit {
       if (idParam) {
         this.isEditMode = true;
         this.purchaseId = +idParam;
-        this.loadPurchase(this.purchaseId);
+        this.loadPurchase();
       }
     });
   }
 
-  loadPurchase(id: number) {
-    this.purchaseService.getPurchaseById(id).subscribe({
-      next: data => this.purchaseForm.patchValue(data),
-      error: err => console.error('Error loading purchase', err)
+  loadPurchase(): void {
+    this.purchaseService.getPurchaseById(this.purchaseId).subscribe(purchase => {
+      this.purchaseForm.patchValue({
+        id: purchase.id, // <-- setting id too
+        userId: purchase.userId,
+        purchaseDate: purchase.purchaseDate,
+        totalAmount: purchase.totalAmount,
+        status: purchase.status
+      });
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.purchaseForm.invalid) return;
 
     if (this.isEditMode) {
-      this.purchaseService.updatePurchase(this.purchaseId, this.purchaseForm.value).subscribe({
-        next: () => this.router.navigate(['/purchases']),
-        error: err => console.error('Error updating purchase', err)
+      this.purchaseService.updatePurchase(this.purchaseId, this.purchaseForm.value).subscribe(() => {
+        this.router.navigate(['/purchases']);
       });
     } else {
-      this.purchaseService.createPurchase(this.purchaseForm.value).subscribe({
-        next: () => this.router.navigate(['/purchases']),
-        error: err => console.error('Error creating purchase', err)
+      this.purchaseService.createPurchase(this.purchaseForm.value).subscribe(() => {
+        this.router.navigate(['/purchases']);
       });
     }
   }
