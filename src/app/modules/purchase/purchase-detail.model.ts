@@ -3,6 +3,6 @@ export interface PurchaseDetail {
     purchaseId: number;
     productId: number;
     quantity: number;
-    unitPrice?: number;
+    unitPrice: number;
     SubTotal: number;
 }

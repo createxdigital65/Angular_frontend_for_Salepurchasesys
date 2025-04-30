@@ -3,11 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PurchaseService } from '../purchase.service';
 import { Purchase } from 'src/app/models/purchase.model';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // <-- needed
+import { PurchaseDetailListComponent } from '../purchase-detail-list/purchase-detail-list.component';
 
 @Component({
   selector: 'app-purchase-detail',
-  standalone: true, // <-- ADD THIS
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, PurchaseDetailListComponent],
   templateUrl: './purchase-detail.component.html',
   styleUrls: ['./purchase-detail.component.css']
 })

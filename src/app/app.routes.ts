@@ -12,7 +12,7 @@ export const routes: Routes = [
         path: 'product-sub-categories',
         loadChildren: () => import('./modules/product/product-sub-category/product-sub-category-routing.module').then(m => m.ProductSubCategoryRoutingModule)
     },
-    { path: 'purchases', loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule) },
+    { path: 'purchase', loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule) },
 
 
 ];

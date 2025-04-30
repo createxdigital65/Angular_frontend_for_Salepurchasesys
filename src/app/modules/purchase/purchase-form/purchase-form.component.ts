@@ -1,11 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { PurchaseService } from '../purchase.service';
+import { PurchaseDetailListComponent } from '../purchase-detail-list/purchase-detail-list.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-form',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    FormsModule,
+    PurchaseDetailListComponent
+  ],
   templateUrl: './purchase-form.component.html',
+  styleUrls: ['./purchase-form.component.css']
 })
 export class PurchaseFormComponent implements OnInit {
   purchaseForm!: FormGroup;
@@ -21,7 +33,7 @@ export class PurchaseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.purchaseForm = this.fb.group({
-      id: [null],  // <-- Important: added id
+      id: [null],
       userId: [null, Validators.required],
       purchaseDate: [null, Validators.required],
       totalAmount: [null, Validators.required],
@@ -40,27 +52,17 @@ export class PurchaseFormComponent implements OnInit {
 
   loadPurchase(): void {
     this.purchaseService.getPurchaseById(this.purchaseId).subscribe(purchase => {
-      this.purchaseForm.patchValue({
-        id: purchase.id, // <-- setting id too
-        userId: purchase.userId,
-        purchaseDate: purchase.purchaseDate,
-        totalAmount: purchase.totalAmount,
-        status: purchase.status
-      });
+      this.purchaseForm.patchValue(purchase);
     });
   }
 
   onSubmit(): void {
     if (this.purchaseForm.invalid) return;
 
-    if (this.isEditMode) {
-      this.purchaseService.updatePurchase(this.purchaseId, this.purchaseForm.value).subscribe(() => {
-        this.router.navigate(['/purchases']);
-      });
-    } else {
-      this.purchaseService.createPurchase(this.purchaseForm.value).subscribe(() => {
-        this.router.navigate(['/purchases']);
-      });
-    }
+    const save$ = this.isEditMode
+      ? this.purchaseService.updatePurchase(this.purchaseId, this.purchaseForm.value)
+      : this.purchaseService.createPurchase(this.purchaseForm.value);
+
+    save$.subscribe(() => this.router.navigate(['/purchases']));
   }
 }

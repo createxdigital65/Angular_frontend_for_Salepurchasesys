@@ -9,5 +9,11 @@
         <li class="list-group-item"><strong>Status:</strong> {{ purchase.status }}</li>
     </ul>
 
+    <!--  Embed the detail list component -->
+    <div class="mt-4">
+        <h3>Purchase Line Items</h3>
+        <app-purchase-detail-list [purchaseId]="purchase.id"></app-purchase-detail-list>
+    </div>
+
     <button class="btn btn-primary mt-3" (click)="goBack()">Back to Purchases</button>
 </div>

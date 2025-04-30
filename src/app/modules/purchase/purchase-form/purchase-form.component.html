@@ -29,4 +29,8 @@
         <button type="submit" class="btn btn-success">{{ isEditMode ? 'Update' : 'Create' }}</button>
         <button class="btn btn-secondary ms-2" [routerLink]="['/purchases']">Cancel</button>
     </form>
+    <div *ngIf="isEditMode">
+        <h4 class="mt-4">Purchase Details</h4>
+        <app-purchase-detail-list [purchaseId]="purchaseId"></app-purchase-detail-list>
+    </div>
 </div>

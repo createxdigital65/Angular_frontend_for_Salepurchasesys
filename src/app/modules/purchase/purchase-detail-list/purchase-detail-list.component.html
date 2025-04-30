@@ -1,0 +1,47 @@
+<!-- Purchase Details Table -->
+<div *ngIf="purchaseDetails.length > 0; else noDetails">
+    <table class="table table-bordered mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detail of purchaseDetails">
+                <td>{{ detail.productId }}</td>
+                <td>{{ detail.quantity }}</td>
+                <td>{{ detail.subTotal | currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #noDetails>
+    <p class="text-muted mt-2">No purchase details found.</p>
+</ng-template>
+
+<!-- Add New Purchase Detail Form -->
+<div class="mt-4">
+    <h5>Add Purchase Detail</h5>
+    <form (ngSubmit)="addPurchaseDetail()" #detailForm="ngForm">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <input type="number" class="form-control" [(ngModel)]="newDetail.productId" name="productId"
+                    placeholder="Product ID" required />
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" [(ngModel)]="newDetail.quantity" name="quantity"
+                    placeholder="Quantity" required />
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" [(ngModel)]="newDetail.SubTotal" name="subTotal"
+                    placeholder="Subtotal" required />
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
